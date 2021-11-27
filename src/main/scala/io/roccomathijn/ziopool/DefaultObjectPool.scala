@@ -46,7 +46,7 @@ class DefaultObjectPool[R <: Clock with Blocking, A](
     def waitForObject(maxWaitDuration: Duration): ZIO[R, Throwable, PooledObject[R, A]] =
       for {
         p <- TPromise.make[Throwable, PooledObject[R, A]].commit
-        _ <- ZSTM.ifM(queue.isFull)(ZSTM.fail(new RuntimeException("Max queue size reached")), queue.offer(p)).commit
+        _ <- ZSTM.ifM(queue.isFull)(onTrue = ZSTM.fail(new RuntimeException("Max queue size reached")), onFalse = queue.offer(p)).commit
         obj <- blocking.blocking( // Not sure if it's necessary to run this on the blocking thread pool
           p.await.commit
             .timeoutFail(new NoSuchElementException("Pool is exhausted! Max wait time reached"))(maxWaitDuration)
