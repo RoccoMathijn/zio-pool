@@ -32,8 +32,4 @@ DefaultObjectPool.make(DefaultObjectPool.make(config, acquirePooledObject)).use 
 }
 ```
 
-### Examples
-
-zio ftp
-
 
