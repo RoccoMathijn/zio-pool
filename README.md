@@ -1,5 +1,7 @@
 # ZIO Pool
 
+This project is still a work in progress but it came to my attention that similar work is being done for ZIO 2 with ZPool. So I'm abandoning this.
+
 ZIO Pool is an ZIO ZManaged powered object pooling library inspired by Apache Commons Pool and ZIO SQL.
 
 ## Features
